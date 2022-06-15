@@ -1,0 +1,60 @@
+<div class="w3l_banner_nav_right">
+    <!-- login -->
+            <div class="w3_login">
+                <h3>Sign In & Sign Up</h3>
+                <div class="w3_login_module">
+                    <div class="module form-module">
+                      <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+                        <div class="tooltip">Click Me</div>
+                      </div>
+                      <div class="form">
+                        <h2>Login to your account</h2>
+                        <form action="#" method="post">
+                          <input type="text" name="Username" placeholder="Username" required=" ">
+                          <input type="password" name="Password" placeholder="Password" required=" ">
+                          <input type="submit" value="Login">
+                        </form>
+                      </div>
+                      <div class="form">
+                        <h2>Create an account</h2>
+                        <form (submit)="onSignInFormSubmit(f)" #f="ngForm">
+                          <input type="text" name="Username" placeholder="Username" #userName="ngModel" required ngModel minlength="4">
+                          <!-- {{userName.errors | json }} -->
+                          <p class="alert alert-danger" *ngIf="(userName.touched || userName.dirty) && userName.errors?.['required']">
+                            Pleae Enter User Name
+                          </p>
+                          <p class="alert alert-danger" *ngIf="userName.touched && userName.errors?.['minlength']">
+                            Pleae Enter Minimum 2 Character
+                          </p>
+                          <input type="password" name="Password" placeholder="Password" 
+                          pattern="^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$
+                          " required ngModel #userPasword="ngModel">
+                          {{userPasword.errors | json}}
+                          <p class="alert alert-danger" *ngIf="userPasword.touched">
+                              Please Enter Pasword
+                          </p>
+                          <input type="email" name="Email" placeholder="Email Address" required=" " ngModel>
+                          <input type="text" name="Phone" placeholder="Phone Number" required=" " ngModel>
+                          <input type="submit" [disabled]="f.invalid" value="Register">
+                        </form>
+                      </div>
+                      <div class="cta"><a href="#">Forgot your password?</a></div>
+                    </div>
+                </div>
+                <!-- <script>
+                    $('.toggle').click(function(){
+                      // Switches the Icon
+                      $(this).children('i').toggleClass('fa-pencil');
+                      // Switches the forms  
+                      $('.form').animate({
+                        height: "toggle",
+                        'padding-top': 'toggle',
+                        'padding-bottom': 'toggle',
+                        opacity: "toggle"
+                      }, "slow");
+                    });
+                </script> -->
+            </div>
+    <!-- //login -->
+            </div>
+            <div class="clearfix"></div>
