@@ -27,14 +27,30 @@
                             Pleae Enter Minimum 2 Character
                           </p>
                           <input type="password" name="Password" placeholder="Password" 
-                          pattern="^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$
-                          " required ngModel #userPasword="ngModel">
-                          {{userPasword.errors | json}}
-                          <p class="alert alert-danger" *ngIf="userPasword.touched">
+                          pattern="^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$" required ngModel #userPasword="ngModel" minlength="8">
+                          <p class="alert alert-danger" *ngIf="(userPasword.touched || userPasword.dirty) && userPasword.errors?.['required']">
                               Please Enter Pasword
                           </p>
-                          <input type="email" name="Email" placeholder="Email Address" required=" " ngModel>
-                          <input type="text" name="Phone" placeholder="Phone Number" required=" " ngModel>
+                          <p class="alert alert-danger" *ngIf="(userPasword.touched || userPasword.dirty) && userPasword.errors?.['pattern']">
+                            Password Must Contains (Uppercase & Lowercase letters, Number and Special Char)
+                        </p>
+                        <p class="alert alert-danger" *ngIf="userPasword.touched && userPasword.errors?.['minlength']">
+                          Password should be minmum 8 char
+                      </p>
+                          <input type="email" name="Email" placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required ngModel #userEmail="ngModel">
+                          <p class="alert alert-danger" *ngIf="(userEmail.touched || userEmail.dirty) && userEmail.errors?.['pattern']">
+                            Please Enter Email
+                          </p>
+                          <input type="text" name="Phone" placeholder="Phone Number" required #userMobileNum="ngModel" ngModel pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$">
+
+                          <p class="alert alert-danger" *ngIf="(userMobileNum.touched || userMobileNum.dirty) && userMobileNum.errors?.['required']">
+                            Please Enter Phone Numer
+                          </p>
+
+                          <p class="alert alert-danger" *ngIf="(userMobileNum.touched || userMobileNum.dirty) && userMobileNum.errors?.['pattern']">
+                            Password should be max 10 digits
+                        </p>
+
                           <input type="submit" [disabled]="f.invalid" value="Register">
                         </form>
                       </div>
