@@ -9,10 +9,38 @@
                       </div>
                       <div class="form">
                         <h2>Login to your account</h2>
-                        <form action="#" method="post">
-                          <input type="text" name="Username" placeholder="Username" required=" ">
-                          <input type="password" name="Password" placeholder="Password" required=" ">
-                          <input type="submit" value="Login">
+                        <form [formGroup]="loginForm" (submit)="onLogin()">
+                          <input type="text" name="Username" formControlName="Username" placeholder="Username" >
+
+                          <p class="alert alert-danger" *ngIf="(userNameCtrl.touched || userNameCtrl.dirty) && userNameCtrl.errors?.['required']">
+                            Please Enter Your Name
+                          </p>
+
+                          <p class="alert alert-danger" *ngIf="userNameCtrl.touched && userNameCtrl.errors?.['minlength']">
+                            Name should be minimum 2 chars
+                          </p>
+                          
+                          <p class="alert alert-danger" *ngIf="userNameCtrl.touched && userNameCtrl.errors?.['pattern']">
+                            Username should be letters and allows Hyphens only
+                          </p>
+
+                          <input type="password" name="Password" formControlName="Password" placeholder="Password">
+
+                          <p class="alert alert-danger" *ngIf="userPasswordCtrl.touched && userPasswordCtrl.errors?.['required']">
+                            Please Enter Password
+                          </p>
+
+                          <p class="alert alert-danger" *ngIf="userPasswordCtrl.touched && userPasswordCtrl.errors?.['pattern']">
+                            Password Must Contains (Uppercase & Lowercase letters, Number and Special Char)
+                          </p>
+
+                          <p class="alert alert-danger" *ngIf="userPasswordCtrl.touched && userPasswordCtrl.errors?.['minlength']">
+                            Password should be minimum 8 chars
+                          </p>
+
+                          <input type="submit" value="Login" [disabled]="loginForm.invalid">
+                          <!-- <input type="button" value="Get Data" (click)="getUserData()" > -->
+
                         </form>
                       </div>
                       <div class="form">
